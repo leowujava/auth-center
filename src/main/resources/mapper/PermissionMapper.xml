@@ -13,4 +13,9 @@
         WHERE ur.user_id = #{userId}
     </select>
 
+    <select id="findAll" resultType="com.demo.auth.center.entity.model.SysPermission">
+        SELECT *
+        FROM sys_permission
+    </select>
+
 </mapper>

@@ -63,6 +63,6 @@ public class UserController {
 
     @PostMapping("/user/add")
     public Object add() {
-        return "info";
+        return "add";
     }
 }

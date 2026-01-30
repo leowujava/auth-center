@@ -10,4 +10,5 @@ public interface PermissionMapper {
 
     List<SysPermission> findByUserId(Long userId);
 
+    List<SysPermission> findAll();
 }
