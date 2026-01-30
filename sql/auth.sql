@@ -89,7 +89,7 @@ CREATE TABLE `sys_user`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of sys_user
+-- Records of sys_user 密码：123456
 -- ----------------------------
 INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$XmO8YKYNkCtjHRgVmcE/I.rRI8iSVvQriDFpSpQhAU.JdZs5NcfgG', NULL, 1, '2026-01-30 13:17:17');
 
