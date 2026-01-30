@@ -1,0 +1,23 @@
+server:
+  port: 8090
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/auth?useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:/mapper/**/*.xml
+  type-aliases-package: com.demo.auth.center.entity
+
+
+logging:
+  level:
+    root: INFO
+    org.springframework: debug
+    org.mybatis: DEBUG
+    com.demo.auth.center: DEBUG
