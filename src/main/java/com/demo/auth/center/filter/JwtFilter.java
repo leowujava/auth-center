@@ -42,6 +42,7 @@ public class JwtFilter extends OncePerRequestFilter {
             try {
                 if (!JwtUtil.isExpired(token)) {
                     String username = JwtUtil.getUsername(token);
+                    //@TODO 通过redis获取用户权限
                     List<String> auths = JwtUtil.getAuthorities(token);
                     List<SimpleGrantedAuthority> authorities = auths.stream()
                             .map(SimpleGrantedAuthority::new)
