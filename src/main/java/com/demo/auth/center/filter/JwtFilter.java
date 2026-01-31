@@ -19,9 +19,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-
         String path = request.getRequestURI();
-
         // 登录接口直接跳过JWT校验
         return "/login".equals(path);
     }

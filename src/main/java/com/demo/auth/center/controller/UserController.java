@@ -1,6 +1,7 @@
 package com.demo.auth.center.controller;
 
 
+import com.demo.auth.center.entity.vo.ApiResponse;
 import com.demo.auth.center.util.JwtUtil;
 import jakarta.annotation.Resource;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,7 +29,7 @@ public class UserController {
     private AuthenticationManager authenticationManager;
 
     @RequestMapping("/login")
-    public Object login(String username, String password) {
+    public ApiResponse<?> login(String username, String password) {
         UsernamePasswordAuthenticationToken token =
                 new UsernamePasswordAuthenticationToken(
                         username,
@@ -53,7 +54,7 @@ public class UserController {
         result.put("token", jwt);
         result.put("username", user.getUsername());
 
-        return result;
+        return ApiResponse.success(result);
     }
 
     @RequestMapping("/user/info")

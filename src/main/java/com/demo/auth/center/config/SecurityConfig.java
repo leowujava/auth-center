@@ -5,6 +5,7 @@ import com.demo.auth.center.filter.JwtFilter;
 import com.demo.auth.center.mapper.PermissionMapper;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,7 +18,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,6 +35,8 @@ public class SecurityConfig {
 
     @Autowired
     private PermissionMapper permissionMapper;
+    @Autowired
+    private WhiteListConfig whiteListConfig;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) {
@@ -42,8 +47,13 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(auth -> {
-                            auth
-                                    .requestMatchers("/login").permitAll();
+                            List<String> whitelist = whiteListConfig.getWhitelist();
+                            if (!CollectionUtils.isEmpty(whitelist)) {
+                                whitelist.forEach(white -> {
+                                    auth
+                                            .requestMatchers(white).permitAll();
+                                });
+                            }
                             // 动态RBAC配置
                             for (SysPermission p : perms) {
                                 auth.requestMatchers(p.getUrl())
