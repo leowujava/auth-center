@@ -2,6 +2,8 @@ package com.demo.auth.center.config;
 
 import com.demo.auth.center.entity.model.SysPermission;
 import com.demo.auth.center.filter.JwtFilter;
+import com.demo.auth.center.handler.LoginFailureHandler;
+import com.demo.auth.center.handler.LoginSuccessHandler;
 import com.demo.auth.center.mapper.PermissionMapper;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,11 @@ public class SecurityConfig {
     private JwtFilter jwtFilter;
 
     @Autowired
+    private LoginFailureHandler loginFailureHandler;
+    @Autowired
+    private LoginSuccessHandler loginSuccessHandler;
+
+    @Autowired
     private PermissionMapper permissionMapper;
     @Autowired
     private WhiteListConfig whiteListConfig;
@@ -46,7 +53,15 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
+                .formLogin(form -> form
+                        .loginProcessingUrl("/login") // 必须和前端一致
+                        .successHandler(loginSuccessHandler)
+                        .failureHandler(loginFailureHandler) // 👈 核心
+                        .permitAll()
+                )
                 .authorizeHttpRequests(auth -> {
+
+
                             List<String> whitelist = whiteListConfig.getWhitelist();
                             if (!CollectionUtils.isEmpty(whitelist)) {
                                 whitelist.forEach(white -> {

@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -22,7 +23,7 @@ public class JwtUtil {
     private final static long EXPIRATION = 60 * 60 * 1000;
 
     // 生成token
-    public static String generateToken(String username, List<String> authorities) {
+    public static String generateToken(String username, Collection<String> authorities) {
 
         return Jwts.builder()
                 .subject(username)
