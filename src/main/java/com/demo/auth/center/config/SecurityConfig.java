@@ -35,10 +35,10 @@ public class SecurityConfig {
     @Resource
     private JwtFilter jwtFilter;
 
-    @Autowired
-    private LoginFailureHandler loginFailureHandler;
-    @Autowired
-    private LoginSuccessHandler loginSuccessHandler;
+//    @Autowired
+//    private LoginFailureHandler loginFailureHandler;
+//    @Autowired
+//    private LoginSuccessHandler loginSuccessHandler;
 
     @Autowired
     private PermissionMapper permissionMapper;
@@ -53,12 +53,12 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .formLogin(form -> form
-                        .loginProcessingUrl("/login") // 必须和前端一致
-                        .successHandler(loginSuccessHandler)
-                        .failureHandler(loginFailureHandler) // 👈 核心
-                        .permitAll()
-                )
+//                .formLogin(form -> form
+//                        .loginProcessingUrl("/login") // 必须和前端一致
+//                        .successHandler(loginSuccessHandler)
+//                        .failureHandler(loginFailureHandler) // 👈 核心
+//                        .permitAll()
+//                )
                 .authorizeHttpRequests(auth -> {
 
 
